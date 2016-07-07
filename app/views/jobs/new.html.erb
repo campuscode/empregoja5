@@ -1,4 +1,9 @@
 <h1>Nova Vaga</h1>
+<% if flash[:error] %>
+  <div class="error">
+    <%= flash[:error] %>
+  </div>
+<% end %>
 <%= form_for @job do |f| %>
   <div>
     <%= f.label :title, 'Título' %>
