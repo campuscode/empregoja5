@@ -3,7 +3,10 @@
     <h1><%= link_to job.title, job %></h1>
     <p>
       <%= job.company %><br>
-      <%= job.location %>
+      <%= job.location %><br>
+      <% if job.featured? %>
+        <strong>Destaque</strong>
+      <% end %>
     </p>
   <% end %>
 </section>

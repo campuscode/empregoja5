@@ -9,7 +9,8 @@ class JobsController < ApplicationController
 
   def create
     @job = Job.create(params.require(:job).permit(:title, :location, :category,
-                                                  :company, :description))
+                                                  :company, :description,
+                                                  :featured))
     redirect_to @job
   end
 end
