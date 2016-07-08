@@ -4,3 +4,11 @@
   <%= @company.mail %><br>
   <%= @company.phone %>
 </p>
+<section>
+  <h2>Vagas</h2>
+  <% if @company.jobs.any? %>
+    <%= render @company.jobs %>
+  <% else %>
+    <div class="error">'Nenhuma vaga disponível' %></div>
+  <% end %>
+</section>
