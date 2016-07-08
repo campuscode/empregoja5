@@ -1,24 +1,49 @@
 class JobsController < ApplicationController
+  before_action :set_companies, only: [:new, :edit]
+
   def show
     @job = Job.find(params[:id])
   end
 
   def new
     @job = Job.new
-    @companies = Company.all
   end
 
   def create
-    @job = Job.new(params.require(:job).permit(:title, :location, :category,
-                                                  :company_id, :description,
-                                                  :featured))
-
+    @job = Job.new(job_params)
     if @job.save
       redirect_to @job
     else
-      @companies = Company.all
+      set_companies
       flash[:error] = 'Não foi possível criar a vaga'
       render :new
     end
+  end
+
+  def edit
+    @job = Job.find(params[:id])
+  end
+
+  def update
+    @job = Job.find(params[:id])
+    if @job.update(job_params)
+    redirect_to @job
+    else
+      set_companies
+      flash[:error] = 'Não foi possível atualizar a vaga'
+      render :edit
+    end
+
+  end
+
+  private
+
+  def job_params
+    params.require(:job).permit(:title, :location, :category,
+                                :company_id, :description, :featured)
+  end
+
+  def set_companies
+    @companies = Company.all
   end
 end
