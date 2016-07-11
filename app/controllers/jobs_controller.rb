@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :set_companies, only: [:new, :edit]
+  before_action :set_collections, only: [:new, :edit]
 
   def show
     @job = Job.find(params[:id])
@@ -14,7 +14,7 @@ class JobsController < ApplicationController
     if @job.save
       redirect_to @job
     else
-      set_companies
+      set_collections
       flash[:error] = 'Não foi possível criar a vaga'
       render :new
     end
@@ -29,7 +29,7 @@ class JobsController < ApplicationController
     if @job.update(job_params)
     redirect_to @job
     else
-      set_companies
+      set_collections
       flash[:error] = 'Não foi possível atualizar a vaga'
       render :edit
     end
@@ -39,11 +39,12 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:title, :location, :category,
+    params.require(:job).permit(:title, :location, :category_id,
                                 :company_id, :description, :featured)
   end
 
-  def set_companies
+  def set_collections
     @companies = Company.all
+    @categories = Category.all
   end
 end
